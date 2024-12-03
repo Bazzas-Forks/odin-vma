@@ -1,6 +1,6 @@
 package vma
 
-import vk "vendor:vulkan"
+import vk "../vulkan"
 
 DeviceMemoryCallbacks :: struct {
 	pfnAllocate: PFN_vmaAllocateDeviceMemoryFunction,
