@@ -2,18 +2,25 @@
 
 Binding for VulkanMemoryAllocator.
 
+**NOTE**: This fork is modified for use with the Callisto game engine, which uses a modified version of the Vulkan package.
+
+Use the original repo by DanielGavin to use it with `vendor:vulkan`.
+
 ## Usage
 
 The blob for the Windows library is shipped with the repository, but not for Linux. All code is modified to import the required files if you are on Linux, so no changes to the code need to be made. [Build instructions for VMA on linux](#building-vma)
 
-```
-vulkan_functions := vma.create_vulkan_functions();
+```odin
+callisto_gpu_device: gpu.Device 
+// init device
+
+vulkan_functions := vma.create_vulkan_functions(&callisto_gpu_device.vtable);
 
 create_info := vma.AllocatorCreateInfo {
 	vulkanApiVersion = vulkan.API_VERSION_1_2,
-	physicalDevice = physical_device,
-	device = device,
-	instance = instance,
+	physicalDevice   = callisto_gpu_device.phys_device,
+	device           = callisto_gpu_device.device,
+	instance         = callisto_gpu_device.instance,
 	pVulkanFunctions = &vulkan_functions,
 };
 
